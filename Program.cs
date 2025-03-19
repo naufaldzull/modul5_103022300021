@@ -1,30 +1,42 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
+using System;
 internal class Program
 {
-    class PemrosesData
+    class SimpleDataBase<T>
     {
-        public T DapatkanNilaiTerbesar<T>(T nim1, T nim2, T nim3)
+        private List<T> stroredData;
+        private List<DateTime> inputDates;
+        public SimpleDataBase()
         {
-            dynamic temp = (dynamic)nim1;
-            dynamic temp2 = (dynamic)nim2;
-            dynamic temp3 = (dynamic)nim3;
-            dynamic terbesar = temp;
+            stroredData = new List<T>();
+            inputDates = new List<DateTime>();
 
-            if (temp2 > terbesar)
-            {
-                terbesar = temp2;
-            }
-            if (temp3 > terbesar)
-            {
-                terbesar = temp3;
-            }
-            return terbesar;
+        }
+        public void addNewData(T data)
+        {
+            stroredData.Add(data);
+            inputDates.Add(DateTime.Now);
         }
 
-        static void Main()
+        public void printAllData()
         {
-            PemrosesData data = new PemrosesData();
-            Console.WriteLine($"Nilai Terbesar adalah : {data.DapatkanNilaiTerbesar(10.00, 30.00, 22.00)}");
+            for (int i = 0; i < stroredData.Count; i++)
+            {
+                Console.WriteLine($"Data {i} berisi: {stroredData[i]}, yang disimpan pada waktu {inputDates[i]}");
+            }
         }
+
+    }
+    public static void Main()
+    {
+        SimpleDataBase<int> data = new SimpleDataBase<int>();
+        data.addNewData(10);
+        data.addNewData(30);
+        data.addNewData(22);
+        data.printAllData();
+        SimpleDataBase<string> stringData = new SimpleDataBase<string>();
+
+        stringData.printAllData();
     }
 }
